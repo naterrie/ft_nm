@@ -8,6 +8,12 @@ void print_error(char *msg)
 	exit(1);
 }
 
+
+/*
+ * This is the entry point of the program.
+ * It opens the file, maps it into memory, and calls the ft_nm function.
+ */
+
 int main(int argc, char **argv)
 {
 	if (argc < 2)
@@ -23,6 +29,11 @@ int main(int argc, char **argv)
 	struct stat buf;
 	if (fstat(fd, &buf) == -1)
 		print_error("could not stat file");
-		
+
+	void *map = mmap(NULL, buf.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
+	if (map == MAP_FAILED)
+		print_error("could not map file");
+
+	ft_nm(map);
 	return (0);
 }

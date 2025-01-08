@@ -19,7 +19,8 @@ INC_DIR =	include
 
 FLAGS = -Wall -Werror -Wextra -I $(INC_DIR) -g3
 
-SRCS =	main.c
+SRCS =	main.c \
+		ft_nm.c
 
 ############################## Rules ##########################################
 
@@ -33,7 +34,7 @@ $(DIR_OBJS)/%.o: src/%.c Makefile
 	echo "$(GREEN)⏳ Making $(NAME)"
 	printf "$(BLEU) ⮡ Making $(RESET)$@$(RED)"
 	gcc $(FLAGS) -MMD -c $< -o $@
-	sleep 0.05
+	sleep 0.1
 	printf "$(ERASE)"
 
 $(DIR_OBJS):
