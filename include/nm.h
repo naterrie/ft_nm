@@ -8,7 +8,9 @@
 #include <string.h>
 #include <stdio.h>
 #include <sys/mman.h>
+#include <elf.h>
 
-void ft_nm(void *map);
+void ft_nm(void *map, struct stat fdstat);
+void print_error(char *msg);
 
 #endif

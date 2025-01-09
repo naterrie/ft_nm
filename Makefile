@@ -27,7 +27,7 @@ SRCS =	main.c \
 all: $(NAME)
 
 $(NAME): $(DIR_OBJS) $(OBJS)
-	c++ $(FLAGS) $(OBJS) -o $(NAME)
+	gcc $(FLAGS) $(OBJS) -o $(NAME)
 	echo "$(GREEN)✅ $(NAME) compilated !"
 
 $(DIR_OBJS)/%.o: src/%.c Makefile
@@ -39,6 +39,9 @@ $(DIR_OBJS)/%.o: src/%.c Makefile
 
 $(DIR_OBJS):
 	mkdir -p $@
+
+run:
+	./$(NAME) ft_nm
 
 clean:
 	echo "$(PURPLE)🧹Removing $(NAME).o files !"

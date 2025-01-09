@@ -8,7 +8,6 @@ void print_error(char *msg)
 	exit(1);
 }
 
-
 /*
  * This is the entry point of the program.
  * It opens the file, maps it into memory, and calls the ft_nm function.
@@ -34,6 +33,9 @@ int main(int argc, char **argv)
 	if (map == MAP_FAILED)
 		print_error("could not map file");
 
-	ft_nm(map);
+	ft_nm(map, buf);
+
+	munmap(map, buf.st_size);
+	close(fd);
 	return (0);
 }
