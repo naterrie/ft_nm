@@ -33,7 +33,7 @@ int main(int argc, char **argv)
 	if (map == MAP_FAILED)
 		print_error("could not map file");
 
-	ft_nm(map, buf);
+	ft_nm(map);
 
 	munmap(map, buf.st_size);
 	close(fd);

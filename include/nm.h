@@ -10,7 +10,7 @@
 #include <sys/mman.h>
 #include <elf.h>
 
-void ft_nm(void *map, struct stat fdstat);
+void ft_nm(void *map);
 void print_error(char *msg);
 
 #endif
