@@ -20,7 +20,9 @@ INC_DIR =	include
 FLAGS = -Wall -Werror -Wextra -I $(INC_DIR) -g3
 
 SRCS =	main.c \
-		ft_nm.c
+		ft_nm.c \
+		64bits.c \
+		32bits.c
 
 ############################## Rules ##########################################
 
@@ -40,8 +42,8 @@ $(DIR_OBJS)/%.o: src/%.c Makefile
 $(DIR_OBJS):
 	mkdir -p $@
 
-run:
-	./$(NAME) ft_nm
+run: all
+	./$(NAME) $(NAME)
 
 clean:
 	echo "$(PURPLE)🧹Removing $(NAME).o files !"
