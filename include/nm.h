@@ -1,5 +1,5 @@
 #ifndef NM_H
-#define NM_H
+# define NM_H
 
 #include <unistd.h>
 #include <fcntl.h>
@@ -10,7 +10,17 @@
 #include <sys/mman.h>
 #include <elf.h>
 
-void ft_nm(void *map);
-void print_error(char *msg);
+struct nm
+{
+	int fd;
+	void *map;
+	struct stat buf;
+	char *filename;
+};
+
+void ft_nm(struct nm *nm);
+void print_error(char *msg, struct nm *nm);
+void nm64bits(struct nm *nm);
+void nm32bits(struct nm *nm);
 
 #endif

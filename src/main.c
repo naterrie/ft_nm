@@ -1,11 +1,27 @@
 #include "nm.h"
 
-void print_error(char *msg)
+void print_error(char *msg, struct nm *nm)
 {
-	write(2, "Error: ", 7);
+	write(2, "nm: ", 5);
+	write(2, nm->filename, strlen(nm->filename));
+	write(2, ": ", 2);
 	write(2, msg, strlen(msg));
 	write(2, "\n", 1);
+	if (nm != NULL)
+	{
+		if (nm->map != NULL)
+			munmap(nm->map, nm->buf.st_size);
+		if (nm->fd != -1)
+			close(nm->fd);
+	}
 	exit(1);
+}
+
+void init_nm(struct nm *nm)
+{
+	nm->fd = -1;
+	nm->map = NULL;
+	nm->filename = "a.out";
 }
 
 /*
@@ -15,27 +31,26 @@ void print_error(char *msg)
 
 int main(int argc, char **argv)
 {
-	if (argc < 2)
-	{
-		print_error("usage: ./ft_nm [file]");
-		return (1);
-	}
+	struct nm nm;
+	init_nm(&nm);
 
-	int fd = open(argv[1], O_RDONLY);
-	if (fd == -1)
-		print_error("could not open file");
+	if (argc != 1)
+		nm.filename = argv[1];
+		
+	nm.fd = open(nm.filename, O_RDONLY);
+	if (nm.fd == -1)
+		print_error("No such file", &nm);
 
-	struct stat buf;
-	if (fstat(fd, &buf) == -1)
-		print_error("could not stat file");
+	if (fstat(nm.fd, &nm.buf) == -1)
+		print_error("Error fatal", &nm);
 
-	void *map = mmap(NULL, buf.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
-	if (map == MAP_FAILED)
-		print_error("could not map file");
+	nm.map = mmap(NULL, nm.buf.st_size, PROT_READ, MAP_PRIVATE, nm.fd, 0);
+	if (nm.map == MAP_FAILED)
+		print_error("Error fatal", &nm);
 
-	ft_nm(map);
+	ft_nm(&nm);
 
-	munmap(map, buf.st_size);
-	close(fd);
+	munmap(nm.map, nm.buf.st_size);
+	close(nm.fd);
 	return (0);
 }
