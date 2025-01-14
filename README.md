@@ -23,7 +23,8 @@ typedef struct {
 	uint16_t		e_shentsize;
 	uint16_t		e_shnum;
 	uint16_t		e_shstrndx;
-} ElfN_Ehdr;```
+} ElfN_Ehdr;
+```
 
 e_ident is the magics number (the 4 first must be in order : 0x7f, E, L and F), next are other informations, like 32 or 64 bits, version...
 (for more information about ELF Identification : [here](https://docs.oracle.com/cd/E19683-01/816-1386/6m7qcoblj/index.html#chapter6-35342))
@@ -71,5 +72,6 @@ The map can be cast in an other struct from ELF named Shdr (32 or 64 bits) who l
 		Elf64_Word		sh_info;
 		Elf64_Xword		sh_addralign;
 		Elf64_Xword		sh_entsize;
-} Elf64_Shdr;```
+} Elf64_Shdr;
+```
 
