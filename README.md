@@ -7,7 +7,8 @@ In this project we have to write a program in C who does the same things (with b
 For this project we use ELF Format (struct and DEFINE) with a map.
 With the map we can cast it in the ELF struct Ehdr (64 or 32 bits) who look like this :
 
-```#define EI_NIDENT 16
+```
+#define EI_NIDENT 16
 typedef struct {
 	unsigned char	e_ident[EI_NIDENT];
 	uint16_t		e_type;
@@ -61,7 +62,8 @@ e_shstrndx is the section header string table index
 
 The map can be cast in an other struct from ELF named Shdr (32 or 64 bits) who look like this :
 
-```typedef struct {
+```
+typedef struct {
 		Elf64_Word		sh_name;
 		Elf64_Word		sh_type;
 		Elf64_Xword		sh_flags;
