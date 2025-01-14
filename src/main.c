@@ -36,7 +36,7 @@ int main(int argc, char **argv)
 
 	if (argc != 1)
 		nm.filename = argv[1];
-		
+
 	nm.fd = open(nm.filename, O_RDONLY);
 	if (nm.fd == -1)
 		print_error("No such file", &nm);
@@ -47,10 +47,10 @@ int main(int argc, char **argv)
 	nm.map = mmap(NULL, nm.buf.st_size, PROT_READ, MAP_PRIVATE, nm.fd, 0);
 	if (nm.map == MAP_FAILED)
 		print_error("Error fatal", &nm);
+	close(nm.fd);
 
 	ft_nm(&nm);
 
 	munmap(nm.map, nm.buf.st_size);
-	close(nm.fd);
 	return (0);
 }

@@ -29,7 +29,7 @@ typedef struct
 ```
 
 e_ident is the magics number (the 4 first must be in order : 0x7f, E, L and F), next are other informations, like 32 or 64 bits, version...
-(for more information about ELF Identification : [here](https://docs.oracle.com/cd/E19683-01/816-1386/6m7qcoblj/index.html#chapter6-35342))
+(for more information about ELF Identification click [here](https://docs.oracle.com/cd/E19683-01/816-1386/6m7qcoblj/index.html#chapter6-35342))
 
 - `e_type` is the type of the file
 
@@ -57,11 +57,11 @@ e_ident is the magics number (the 4 first must be in order : 0x7f, E, L and F), 
 
 - `e_shstrndx` is the section header string table index
 
-(for more information about ELF Header : [here](https://docs.oracle.com/cd/E19683-01/816-1386/chapter6-43405/index.html))
+(for more information about ELF Header click [here](https://docs.oracle.com/cd/E19683-01/816-1386/chapter6-43405/index.html))
 
-## Section Struct
+## Section struct
 
-The map can be cast in an other struct from ELF named Shdr (32 or 64 bits) who is defined like this :
+Once we have the Ehdr struct, map can be cast in an other struct from ELF named Shdr (32 or 64 bits) who is defined like this :
 
 ```c
 typedef struct
@@ -89,3 +89,25 @@ typedef struct
 - `sh_addralign`
 - `sh_entsize`
 
+## Symbol struct
+
+```c
+typedef struct
+{
+	Elf64_Word		st_name;
+	unsigned char	st_info;
+	unsigned char	st_other;
+	Elf64_Half		st_shndx;
+	Elf64_Addr		st_value;
+	Elf64_Xword		st_size;
+} Elf64_Sym;
+```
+
+- `st_name` is the symbol name
+- `st_info` 
+- `st_other`
+- `st_shndx`
+- `st_value` is the symbol value
+- `st_size` is the symbol size
+
+(for more information, click [here](https://docs.oracle.com/cd/E19683-01/816-1386/6m7qcoblj/index.html#chapter6-79797))
