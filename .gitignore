@@ -36,12 +36,14 @@
 *.x86_64
 *.hex
 ft_nm
+ft_nm32
 
 # Debug files
 *.dSYM/
 *.su
 *.idb
 *.pdb
+test
 
 # Kernel Module Compile Results
 *.mod*
