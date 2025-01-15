@@ -28,7 +28,7 @@ typedef struct
 } ElfN_Ehdr;
 ```
 
-e_ident is the magics number (the 4 first must be in order : 0x7f, E, L and F), next are other informations, like 32 or 64 bits, version...
+- `e_ident` is the magics number (the 4 first must be in order : 0x7f, E, L and F), next are other informations, like 32 or 64 bits, version...
 (for more information about ELF Identification click [here](https://docs.oracle.com/cd/E19683-01/816-1386/6m7qcoblj/index.html#chapter6-35342))
 
 - `e_type` is the type of the file
