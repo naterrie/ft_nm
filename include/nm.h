@@ -9,20 +9,29 @@
 #include <stdio.h>
 #include <sys/mman.h>
 #include <elf.h>
+#include <stdbool.h>
 
-struct nm
+typedef struct nm
 {
 	int fd;
 	void *map;
 	struct stat buf;
 	char *filename;
-};
+	int count;
+} nm;
+
+typedef struct section
+{
+	char *name;
+	char sym;
+	unsigned long value;
+} section;
 
 /* nm program*/
-void	ft_nm(struct nm *nm);
-void	print_error(char *msg, struct nm *nm);
-char	**nm64bits(struct nm *nm);
-char	**nm32bits(struct nm *nm);
+void	ft_nm(nm *nm);
+int		nm64bits(nm *nm, section ***sect);
+int		nm32bits(nm *nm, section ***sect);
+int		print_error(char *msg, nm *nm);
 
 /* Function lib */
 char*	ft_strdup(const char *s);
