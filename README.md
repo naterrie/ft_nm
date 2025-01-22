@@ -114,6 +114,23 @@ typedef struct
 
 (for more information about sym, click [here](https://docs.oracle.com/cd/E19683-01/816-1386/6m7qcoblj/index.html#chapter6-79797))
 
+## Explanation
+
+When the program start we need to check the entry (arguments, flags).
+If there isnt any arguments, the program try a.out, if there is multiple argument we do the program on all of them.
+
+To do that we need to open and map the file, once the map is created and add is a struct we go in nm function.
+
+# ft_nm functions
+
+With the map created we cast it in ELF header and check if it's a valid file and if it's 64 or 32 bits and go to the function made for.
+(there isn't any difference in 64 and 32 bits except the struct).
+Once the header is parsed we do a cast from the Header e_shoff to have the section.
+With the section we get the .symtab and .strtab and keep them for later.
+After that we get the symbols and set a variable for the name.
+For each symbol we set them in a variable that will keep information of section who is valid for nm.
+To finish we need to check the flags is there is a need to remove lines or sort them in a specific order
+
 ## Bonus
 
 The bonus of the project are the flags : a, p, u, g and r
