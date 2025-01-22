@@ -78,16 +78,18 @@ typedef struct
 	Elf64_Xword		sh_entsize;
 } Elf64_Shdr;
 ```
-- `sh_name`
-- `sh_type`
-- `sh_flages`
-- `sh_addr`
-- `sh_offset`
-- `sh_size`
-- `sh_link`
-- `sh_info`
-- `sh_addralign`
-- `sh_entsize`
+- `sh_name` is the section name
+- `sh_type` is the section type
+- `sh_flags` is the section flags
+- `sh_addr` is the section virtual addr at execution
+- `sh_offset` is the section file offset
+- `sh_size` is the section size in bytes
+- `sh_link` is the section link to an other section
+- `sh_info` is the section information whose depend on section type
+- `sh_addralign` is the section alignement constraints
+- `sh_entsize` if the section hold a table it's the entry size
+
+(for more information about ELF Section click [here](https://docs.oracle.com/cd/E19683-01/816-1386/chapter6-94076/index.html))
 
 ## Symbol struct
 
@@ -104,9 +106,9 @@ typedef struct
 ```
 
 - `st_name` is the symbol name
-- `st_info` 
-- `st_other`
-- `st_shndx`
+- `st_info` is the symbol type and attributes
+- `st_other` is the symbol visibility
+- `st_shndx` is the symbol entry defined by the section
 - `st_value` is the symbol value
 - `st_size` is the symbol size
 
