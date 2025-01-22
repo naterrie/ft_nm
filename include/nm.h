@@ -18,9 +18,15 @@ struct nm
 	char *filename;
 };
 
-void ft_nm(struct nm *nm);
-void print_error(char *msg, struct nm *nm);
-void nm64bits(struct nm *nm);
-void nm32bits(struct nm *nm);
+/* nm program*/
+void	ft_nm(struct nm *nm);
+void	print_error(char *msg, struct nm *nm);
+char	**nm64bits(struct nm *nm);
+char	**nm32bits(struct nm *nm);
+
+/* Function lib */
+char*	ft_strdup(const char *s);
+size_t	ft_strlen(const char *s);
+int		ft_strcmp(const char *s1, const char *s2);
 
 #endif

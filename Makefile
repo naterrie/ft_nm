@@ -22,7 +22,8 @@ FLAGS = -Wall -Werror -Wextra -I $(INC_DIR) -g3
 SRCS =	main.c \
 		ft_nm.c \
 		64bits.c \
-		32bits.c
+		32bits.c \
+		libft.c
 
 ############################## Rules ##########################################
 
