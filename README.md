@@ -112,4 +112,13 @@ typedef struct
 - `st_value` is the symbol value
 - `st_size` is the symbol size
 
-(for more information, click [here](https://docs.oracle.com/cd/E19683-01/816-1386/6m7qcoblj/index.html#chapter6-79797))
+(for more information about sym, click [here](https://docs.oracle.com/cd/E19683-01/816-1386/6m7qcoblj/index.html#chapter6-79797))
+
+## Bonus
+
+The bonus of the project are the flags : a, p, u, g and r
+r reverse sort the list
+p doesnt sort the list
+a add the debug file (found in symtab)
+u show the undefined only
+g show the extern only
