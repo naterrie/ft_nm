@@ -30,7 +30,7 @@ typedef struct section
 	long value;
 } section;
 
-/* nm program*/
+/* nm program */
 void	ft_nm(nm *nm);
 int		nm64bits(nm *nm, section ***sect);
 int		nm32bits(nm *nm, section ***sect);

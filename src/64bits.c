@@ -52,7 +52,7 @@ int nm64bits(nm *nm, section ***sect)
 		return 1;
 	int count = 0;
 
-	for (size_t i = 0; i < symbol_count; i++)
+	for (size_t i = 1; i < symbol_count; i++)
 	{
 		const char *symbol_name = strtab_data + symbols[i].st_name;
 		(*sect)[count] = malloc(sizeof(section));
@@ -62,7 +62,7 @@ int nm64bits(nm *nm, section ***sect)
 		(*sect)[count]->sym = found_sym(&symbols[i], shdr);
 
 		if (symbols[i].st_shndx == SHN_ABS)
-			(*sect)[count]->value = 0000;
+			(*sect)[count]->value = 0;
 		else if (symbols[i].st_shndx == SHN_UNDEF)
 			(*sect)[count]->value = -1;
 		else
