@@ -1,6 +1,9 @@
 #ifndef NM_H
 # define NM_H
 
+#include <errno.h>
+#include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
 #include <fcntl.h>
 #include <sys/stat.h>
@@ -24,13 +27,17 @@ typedef struct section
 {
 	char *name;
 	char sym;
-	unsigned long value;
+	long value;
 } section;
 
 /* nm program*/
 void	ft_nm(nm *nm);
 int		nm64bits(nm *nm, section ***sect);
 int		nm32bits(nm *nm, section ***sect);
+
+/* Utils */
+void	put_value(long value);
+void	free_section(section **sect);
 int		print_error(char *msg, nm *nm);
 
 /* Function lib */

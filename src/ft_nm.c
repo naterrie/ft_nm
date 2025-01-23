@@ -1,5 +1,18 @@
 #include "nm.h"
 
+static void	print_sect(section **section)
+{
+	for (int i = 0; section[i]; i++)
+	{
+		put_value(section[i]->value);
+		write(1, " ", 1);
+		write(1, &section[i]->sym, 1);
+		write(1, " ", 1);
+		write(1, section[i]->name, ft_strlen(section[i]->name));
+		write(1, "\n", 1);
+	}
+}
+
 void ft_nm(nm *nm)
 {
 	unsigned char *magic = (unsigned char *)nm->map;
@@ -25,9 +38,6 @@ void ft_nm(nm *nm)
 	else
 		print_error("file format not recognized", nm);
 
-	for (int i = 0; i < nm->count; i++)
-	{
-		if (sect[i])
-			printf("%lx, %d, %s\n", sect[i]->value, sect[i]->sym, sect[i]->name);
-	}
+	print_sect(sect);
+	free_section(sect);
 }

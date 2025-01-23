@@ -4,7 +4,19 @@ nm is a UNIX function that examin binary files.
 In this project we have to write a program in C who does the same things (with bonus flags).
 For this project we use ELF Format (struct and DEFINE) with a map.
 
-## Header struct
+## How nm work
+
+nm is a function that list the symbols from objects file, if there isnt any arguments he will take a.out
+He show each symbol in a different link with somes informations :
+value type name
+
+Value is the hexadicemal value of the symbol
+
+Type is the type of the symbol who will depend on the type, bind and flags (most of the lowercase arer local except u v and w)
+
+Name is the name of the symbol, if it has a version information associated it will displayed if there isnt the version string is displayed
+
+### Header struct
 With the map we can cast it in the ELF struct Ehdr (64 or 32 bits) who is defined like this :
 
 ```c
@@ -59,7 +71,7 @@ typedef struct
 
 (for more information about ELF Header click [here](https://docs.oracle.com/cd/E19683-01/816-1386/chapter6-43405/index.html))
 
-## Section struct
+### Section struct
 
 Once we have the Ehdr struct, map can be cast in an other struct from ELF named Shdr (32 or 64 bits) who is defined like this :
 
@@ -91,7 +103,7 @@ typedef struct
 
 (for more information about ELF Section click [here](https://docs.oracle.com/cd/E19683-01/816-1386/chapter6-94076/index.html))
 
-## Symbol struct
+### Symbol struct
 
 ```c
 typedef struct
@@ -114,7 +126,7 @@ typedef struct
 
 (for more information about sym, click [here](https://docs.oracle.com/cd/E19683-01/816-1386/6m7qcoblj/index.html#chapter6-79797))
 
-## Explanation
+## Explanation of the program
 
 When the program start we need to check the entry (arguments, flags).
 If there isnt any arguments, the program try a.out, if there is multiple argument we do the program on all of them.
@@ -139,3 +151,7 @@ p doesnt sort the list
 a add the debug file (found in symtab)
 u show the undefined only
 g show the extern only
+
+Somes flags remove effects of other flags :
+r and p together r will never be used
+g a and u only one will be used it have an order wich is u g and a (-gau will show -u, -ga will show -g)
