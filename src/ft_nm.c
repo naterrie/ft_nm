@@ -1,10 +1,10 @@
 #include "nm.h"
 
-static void	print_sect(section **section)
+static void	print_sect(section **section, int j)
 {
 	for (int i = 0; section[i]; i++)
 	{
-		put_value(section[i]->value);
+		put_value(section[i]->value, j);
 		write(1, " ", 1);
 		write(1, &section[i]->sym, 1);
 		write(1, " ", 1);
@@ -29,15 +29,15 @@ void ft_nm(nm *nm)
 	{
 		if (nm64bits(nm, &sect) == 1)
 			return ;
+		print_sect(sect, 1);
 	}
 	else if (magic[EI_CLASS] == ELFCLASS32)
 	{
 		if (nm32bits(nm, &sect) == 1)
 			return;
+		print_sect(sect, 0);
 	}
 	else
 		print_error("file format not recognized", nm);
-
-	print_sect(sect);
 	free_section(sect);
 }

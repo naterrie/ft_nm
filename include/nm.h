@@ -36,7 +36,7 @@ int		nm64bits(nm *nm, section ***sect);
 int		nm32bits(nm *nm, section ***sect);
 
 /* Utils */
-void	put_value(long value);
+void 	put_value(long value, int is_64bit);
 void	free_section(section **sect);
 int		print_error(char *msg, nm *nm);
 

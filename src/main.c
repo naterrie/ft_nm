@@ -1,7 +1,5 @@
 #include "nm.h"
 
-
-
 static void	init_nm(struct nm *nm)
 {
 	nm->fd = -1;

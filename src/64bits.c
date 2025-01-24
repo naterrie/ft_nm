@@ -6,12 +6,18 @@ static char found_sym(Elf64_Sym *sym, Elf64_Shdr *shdr)
 	int type = ELF64_ST_TYPE(sym->st_info);
 	int bind = ELF64_ST_BIND(sym->st_info);
 	(void)type;
-	char c = 0;
 	if (bind == STB_GNU_UNIQUE)
-		c = 'u';
+		return 'u';
+	else if (type == STT_GNU_IFUNC)
+		return 'i';
+	else if (sym->st_shndx == SHN_UNDEF)
+	{
+		if (bind == STB_WEAK)
+			return 'w';
+		return 'U';
+	}
 	else
-		c = '?';
-	return c;
+		return '?';
 }
 
 int nm64bits(nm *nm, section ***sect)
