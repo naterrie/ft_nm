@@ -2,16 +2,37 @@
 
 static char found_sym(Elf32_Sym *sym, Elf32_Shdr *shdr)
 {
-	(void)shdr;
 	int type = ELF32_ST_TYPE(sym->st_info);
 	int bind = ELF32_ST_BIND(sym->st_info);
-	(void)type;
-	char c = 0;
+
 	if (bind == STB_GNU_UNIQUE)
-		c = 'u';
-	else
-		c = '?';
-	return c;
+		return 'u';
+	else if (type == STT_GNU_IFUNC)
+		return 'i';
+	else if (sym->st_shndx == SHN_UNDEF)
+	{
+		if (bind == STB_WEAK)
+			return (type == STT_OBJECT) ? 'v' : 'w';
+		return 'U';
+	}
+	else if (sym->st_shndx == SHN_ABS)
+		return 'a';
+	else if (sym->st_shndx >= SHN_LORESERVE)
+		return '?';
+
+	Elf32_Shdr *section = &shdr[sym->st_shndx];
+	if (section->sh_type == SHT_NOBITS && section->sh_flags == (SHF_ALLOC | SHF_WRITE))
+		return (bind == STB_LOCAL) ? 'b' : 'B';
+	else if (section->sh_type == SHT_PROGBITS && section->sh_flags == (SHF_ALLOC | SHF_EXECINSTR))
+		return (bind == STB_LOCAL) ? 't' : 'T';
+	else if (section->sh_type == SHT_PROGBITS && section->sh_flags == (SHF_ALLOC | SHF_WRITE))
+		return (bind == STB_LOCAL) ? 'd' : 'D';
+	else if (section->sh_type == SHT_PROGBITS && section->sh_flags == SHF_ALLOC)
+		return (bind == STB_LOCAL) ? 'r' :'R';
+
+	if (bind == STB_WEAK)
+		return 'W';
+	return '?';
 }
 
 int nm32bits(nm *nm, section ***sect)
