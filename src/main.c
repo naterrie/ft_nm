@@ -28,10 +28,8 @@ int main(int argc, char **argv)
 	struct nm nm;
 	init_nm(&nm);
 
-	int i = 1;
 	if (argc == 1)
 	{
-		nm.filename = "a.out";
 		if (map_file(&nm) != 1)
 			ft_nm(&nm);
 		else
@@ -40,6 +38,7 @@ int main(int argc, char **argv)
 		return (0);
 	}
 
+	int i = 1;
 	while (i < argc)
 	{
 		nm.filename = argv[i];
@@ -52,6 +51,5 @@ int main(int argc, char **argv)
 		if (i < argc)
 			write(1, "\n", 1);
 	}
-
 	return (0);
 }
