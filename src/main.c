@@ -23,7 +23,7 @@ static int	map_file(nm *nm)
 	return 0;
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	struct nm nm;
 	init_nm(&nm);

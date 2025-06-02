@@ -26,8 +26,7 @@ int	print_error(char *msg, struct nm *nm)
 	}
 }
 
-
-void put_value(long value, int is_64bit)
+void	put_value(long value, int is_64bit)
 {
 	char	*str = "0123456789abcdef";
 	char	buf[17];

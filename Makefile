@@ -45,7 +45,7 @@ $(DIR_OBJS):
 	mkdir -p $@
 
 run: all
-	./$(NAME) $(NAME)
+	./$(NAME) $(NAME) > tmp ; nm -p $(NAME) > tmp2 ; diff tmp tmp2
 
 clean:
 	echo "$(PURPLE)🧹Removing $(NAME).o files !"
@@ -54,6 +54,7 @@ clean:
 fclean: clean
 	echo "$(PURPLE)🧹Removing $(NAME:.a=) !"
 	rm -f $(NAME)
+	rm tmp*
 
 re: fclean $(NAME)
 
