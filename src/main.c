@@ -27,29 +27,36 @@ int	main(int argc, char **argv)
 {
 	struct nm nm;
 	init_nm(&nm);
+	int ret = 0;
 
 	if (argc == 1)
 	{
 		if (map_file(&nm) != 1)
-			ft_nm(&nm);
+			ret = ft_nm(&nm);
 		else
-			return print_error("Error fatal", &nm);
-		munmap(nm.map, nm.buf.st_size);
-		return (0);
+		{
+			print_error("Error fatal", &nm);
+			ret = 1;
+		}
 	}
-
-	int i = 1;
-	while (i < argc)
+	else
 	{
-		nm.filename = argv[i];
-		if (map_file(&nm) != 1)
-			ft_nm(&nm);
-		else
-			return print_error("Error fatal", &nm);
-		munmap(nm.map, nm.buf.st_size);
-		i++;
-		if (i < argc)
-			write(1, "\n", 1);
+		int i = 1;
+		while (i < argc)
+		{
+			nm.filename = argv[i];
+			if (map_file(&nm) != 1)
+				ret = ft_nm(&nm);
+			else
+			{
+				print_error("Error fatal", &nm);
+				ret = 1;
+			}
+			munmap(nm.map, nm.buf.st_size);
+			i++;
+			if (i < argc)
+				write(1, "\n", 1);
+		}
 	}
-	return (0);
+	return (ret);
 }

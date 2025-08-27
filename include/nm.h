@@ -2,17 +2,13 @@
 # define NM_H
 
 #include <errno.h>
-#include <stdlib.h>
-#include <string.h>
 #include <unistd.h>
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdio.h>
 #include <sys/mman.h>
 #include <elf.h>
-#include <stdbool.h>
 
 typedef struct nm
 {
@@ -31,7 +27,7 @@ typedef struct section
 } section;
 
 /* nm program */
-void	ft_nm(nm *nm);
+int	ft_nm(nm *nm);
 int		nm64bits(nm *nm, section ***sect);
 int		nm32bits(nm *nm, section ***sect);
 

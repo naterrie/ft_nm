@@ -30,8 +30,8 @@ void	put_value(long value, int is_64bit)
 {
 	char	*str = "0123456789abcdef";
 	char	buf[17];
-	int	 width = is_64bit ? 16 : 8;
-	int	 i;
+	int		width = is_64bit ? 16 : 8;
+	int		i;
 
 	if (value == -1)
 	{
