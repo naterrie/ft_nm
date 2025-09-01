@@ -9,7 +9,6 @@ int	print_error(char *msg, struct nm *nm)
 	{
 		write(2, strerror(errno), strlen(strerror(errno)));
 		write(2, "\n", 1);
-		return (1);
 	}
 	else
 	{
@@ -22,8 +21,8 @@ int	print_error(char *msg, struct nm *nm)
 			if (nm->fd != -1)
 				close(nm->fd);
 		}
-		return (1);
 	}
+	return 1;
 }
 
 void	put_value(long value, int is_64bit)
@@ -50,7 +49,6 @@ void	put_value(long value, int is_64bit)
 		value /= 16;
 		i--;
 	}
-
 	write(1, buf, width);
 }
 

@@ -89,6 +89,7 @@ typedef struct
 	Elf64_Xword		sh_addralign;
 	Elf64_Xword		sh_entsize;
 } Elf64_Shdr;
+
 ```
 - `sh_name` is the section name
 - `sh_type` is the section type
