@@ -42,6 +42,10 @@ int		ft_nm(nm *nm);
 int		nm64bits(nm *nm, section ***sect);
 int		nm32bits(nm *nm, section ***sect);
 
+/* Sorting */
+void	no_sort(section **section, int j, flag *flags);
+void	default_sort(section **section, int j, flag *flags);
+
 /* Utils */
 void 	put_value(long value, int is_64bit);
 void	free_section(section **sect);

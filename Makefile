@@ -23,6 +23,7 @@ SRCS =	main.c \
 		ft_nm.c \
 		64bits.c \
 		32bits.c \
+		sort.c \
 		utils.c \
 		libft.c
 
