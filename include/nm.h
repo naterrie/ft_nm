@@ -43,17 +43,18 @@ int		nm64bits(nm *nm, section ***sect);
 int		nm32bits(nm *nm, section ***sect);
 
 /* Sorting */
-void	no_sort(section **section, int j, flag *flags);
-void	default_sort(section **section, int j, flag *flags);
+void	default_sort(section **section, int bit, flag *flags);
+void	no_sort(section **section, int bit, flag *flags);
 
 /* Utils */
+int	cmp_section(const char *s1, const char *s2);
 void 	put_value(long value, int is_64bit);
-void	free_section(section **sect);
 int		print_error(char *msg, nm *nm);
+void	free_section(section **sect);
 
 /* Function lib */
+int		ft_strcmp(const char *s1, const char *s2);
 char*	ft_strdup(const char *s);
 size_t	ft_strlen(const char *s);
-int		ft_strcmp(const char *s1, const char *s2);
 
 #endif

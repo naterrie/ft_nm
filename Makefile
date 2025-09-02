@@ -46,7 +46,7 @@ $(DIR_OBJS):
 	mkdir -p $@
 
 run: all
-	./$(NAME) tests/cub3D > tmp ; nm -p tests/cub3D > tmp2 ; diff tmp tmp2
+	./$(NAME) ft_nm > mine ; nm ft_nm > true ; diff mine true
 
 clean:
 	echo "$(PURPLE)🧹Removing $(NAME).o files !"
@@ -55,7 +55,6 @@ clean:
 fclean: clean
 	echo "$(PURPLE)🧹Removing $(NAME:.a=) !"
 	rm -f $(NAME)
-	rm tmp*
 
 re: fclean $(NAME)
 
