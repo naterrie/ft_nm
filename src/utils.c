@@ -68,7 +68,7 @@ void	free_section(section **sect)
 
 int	is_alpha(char c)
 {
-	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9'))
 		return 1;
 	return 0;
 }
@@ -93,7 +93,7 @@ int	cmp_section(const char *s1, const char *s2)
 			c1 += 32;
 		if (c2 >= 'A' && c2 <= 'Z')
 			c2 += 32;
-		if (s1[i] != s2[j])
+		if (c1 != c2)
 		{
 			if (c1 < c2)
 				return -1;
@@ -103,5 +103,9 @@ int	cmp_section(const char *s1, const char *s2)
 		i++;
 		j++;
 	}
+	if (i < j)
+		return -1;
+	if (i > j)
+		return 1;
 	return 0;
 }
