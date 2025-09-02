@@ -45,7 +45,7 @@ $(DIR_OBJS):
 	mkdir -p $@
 
 run: all
-	./$(NAME) tests/cub3D > tmp ; nm -pa tests/cub3D > tmp2 ; diff tmp tmp2
+	./$(NAME) tests/cub3D > tmp ; nm -p tests/cub3D > tmp2 ; diff tmp tmp2
 
 clean:
 	echo "$(PURPLE)🧹Removing $(NAME).o files !"

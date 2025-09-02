@@ -6,7 +6,6 @@ static char found_sym(Elf64_Sym *sym, Elf64_Shdr *shdr)
 	unsigned int type;
 	unsigned int idx = sym->st_shndx;
 
-
 	bind = ELF64_ST_BIND(sym->st_info);
 	type = ELF64_ST_TYPE(sym->st_info);
 	if (bind == STB_GNU_UNIQUE) return ('u');
@@ -77,8 +76,15 @@ int nm64bits(nm *nm, section ***sect)
 		(*sect)[count] = malloc(sizeof(section));
 		if ((*sect)[count] == NULL)
 			return 1;
+		if (symbol_name == NULL || symbol_name[0] == '\0')
+		{
+			free((*sect)[count]);
+			continue;
+		}
 		(*sect)[count]->name = ft_strdup(symbol_name);
-		(*sect)[count]->sym = found_sym(&symbols[i], shdr);
+		if ((*sect)[count]->name == NULL)
+			return 1;
+		(*sect)[count]->sym = found_sym(&symbols[i], &shdr[symbols[i].st_shndx]);
 
 		if (symbols[i].st_shndx == SHN_ABS)
 			(*sect)[count]->value = 0;

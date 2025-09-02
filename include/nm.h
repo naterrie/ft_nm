@@ -1,6 +1,7 @@
 #ifndef NM_H
 # define NM_H
 
+#include <stdbool.h>
 #include <errno.h>
 #include <unistd.h>
 #include <fcntl.h>
@@ -10,6 +11,15 @@
 #include <sys/mman.h>
 #include <elf.h>
 
+typedef struct flag
+{
+	bool a;
+	bool g;
+	bool u;
+	bool r;
+	bool p;
+} flag;
+
 typedef struct nm
 {
 	int fd;
@@ -17,6 +27,7 @@ typedef struct nm
 	struct stat buf;
 	char *filename;
 	int count;
+	flag flags;
 } nm;
 
 typedef struct section
@@ -27,7 +38,7 @@ typedef struct section
 } section;
 
 /* nm program */
-int	ft_nm(nm *nm);
+int		ft_nm(nm *nm);
 int		nm64bits(nm *nm, section ***sect);
 int		nm32bits(nm *nm, section ***sect);
 

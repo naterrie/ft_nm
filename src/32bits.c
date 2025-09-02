@@ -2,9 +2,34 @@
 
 static char found_sym(Elf32_Sym *sym, Elf32_Shdr *shdr)
 {
-	(void)sym;
-	(void)shdr;
-	return '?';
+	unsigned int bind;
+	unsigned int type;
+	unsigned int idx = sym->st_shndx;
+
+	bind = ELF32_ST_BIND(sym->st_info);
+	type = ELF32_ST_TYPE(sym->st_info);
+	if (bind == STB_GNU_UNIQUE) return ('u');
+	if (type == STT_GNU_IFUNC) return ('i');
+	if (bind == STB_WEAK)
+	{
+		if (type == STT_OBJECT)
+			return ((idx == SHN_UNDEF) ? 'v' : 'V');
+		return ((idx == SHN_UNDEF) ? 'w' : 'W');
+	}
+	if (type == STT_FILE) return ('a');
+	if (idx == SHN_ABS) return ('A');
+	if (idx == SHN_COMMON) return ('C');
+	if (idx == SHN_UNDEF) return ('U');
+
+	if (shdr->sh_type == SHT_NOBITS) return ((bind == STB_LOCAL) ? 'b' : 'B');
+	if (shdr->sh_flags & SHF_EXECINSTR) return ((bind == STB_LOCAL) ? 't' : 'T');
+	if (!(shdr->sh_flags & SHF_WRITE))
+	{
+		if ((shdr->sh_flags & SHF_EXECINSTR) && (shdr->sh_flags & SHF_ALLOC))
+			return ((bind == STB_LOCAL) ? 't' : 'T');
+		return ((bind == STB_LOCAL) ? 'r' : 'R');
+	}
+	return ((bind == STB_LOCAL) ? 'd' : 'D');
 }
 
 int nm32bits(nm *nm, section ***sect)
@@ -51,8 +76,15 @@ int nm32bits(nm *nm, section ***sect)
 		(*sect)[count] = malloc(sizeof(section));
 		if ((*sect)[count] == NULL)
 			return 1;
+		if (symbol_name == NULL || symbol_name[0] == '\0')
+		{
+			free((*sect)[count]);
+			continue;
+		}
 		(*sect)[count]->name = ft_strdup(symbol_name);
-		(*sect)[count]->sym = found_sym(&symbols[i], shdr);
+		if ((*sect)[count]->name == NULL)
+			return 1;
+		(*sect)[count]->sym = found_sym(&symbols[i], &shdr[symbols[i].st_shndx]);
 
 		if (symbols[i].st_shndx == SHN_ABS)
 			(*sect)[count]->value = 0;

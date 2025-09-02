@@ -1,9 +1,11 @@
 #include "nm.h"
 
-static void	print_sect(section **section, int j)
+static void	print_sect(section **section, int j, flag *flags)
 {
 	for (int i = 0; section[i]; i++)
 	{
+		if (flags->a == false && section[i]->sym == 'a')
+			continue ;
 		put_value(section[i]->value, j);
 		write(1, " ", 1);
 		write(1, &section[i]->sym, 1);
@@ -29,13 +31,13 @@ int ft_nm(nm *nm)
 	{
 		if (nm64bits(nm, &sect) == 1)
 			return 1;
-		print_sect(sect, 1);
+		print_sect(sect, 1, &nm->flags);
 	}
 	else if (magic[EI_CLASS] == ELFCLASS32)
 	{
 		if (nm32bits(nm, &sect) == 1)
 			return 1;
-		print_sect(sect, 0);
+		print_sect(sect, 0, &nm->flags);
 	}
 	else
 	{
