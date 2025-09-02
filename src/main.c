@@ -5,6 +5,12 @@ static void	init_nm(struct nm *nm)
 	nm->fd = -1;
 	nm->map = NULL;
 	nm->filename = "a.out";
+	nm->count = 0;
+	nm->flags.a = false;
+	nm->flags.g = false;
+	nm->flags.u = false;
+	nm->flags.r = false;
+	nm->flags.p = false;
 }
 
 static int	map_file(nm *nm)
@@ -23,21 +29,45 @@ static int	map_file(nm *nm)
 	return 0;
 }
 
+void	get_args(nm *nm, int argc, char **argv)
+{
+	int i = 1;
+
+	while (i < argc && argv[i][0] == '-')
+	{
+		int j = 1;
+		while (argv[i][j])
+		{
+			if (argv[i][j] == 'a')
+				nm->flags.a = true;
+			else if (argv[i][j] == 'g')
+				nm->flags.g = true;
+			else if (argv[i][j] == 'u')
+				nm->flags.u = true;
+			else if (argv[i][j] == 'r')
+				nm->flags.r = true;
+			else if (argv[i][j] == 'p')
+				nm->flags.p = true;
+			j++;
+		}
+		i++;
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	struct nm nm;
 	init_nm(&nm);
 	int ret = 0;
 
+	get_args(&nm, argc, argv);
+
 	if (argc == 1)
 	{
 		if (map_file(&nm) != 1)
 			ret = ft_nm(&nm);
 		else
-		{
-			print_error("Error fatal", &nm);
 			ret = 1;
-		}
 	}
 	else
 	{
