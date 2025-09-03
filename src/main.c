@@ -52,8 +52,18 @@ void	get_args(nm *nm, int argc, char **argv)
 		}
 		i++;
 	}
-	if (nm->flags.u == true && nm->flags.a == true)
+	// Order args only symbol: U > G > A
+	// Order sort : P > R
+
+	if (nm->flags.u == true && nm->flags.g == true) // u > g
+		nm->flags.g = false;
+	if (nm->flags.u == true && nm->flags.a == true) // u > a
 		nm->flags.a = false;
+	if (nm->flags.g == true && nm->flags.a == true) // g > a
+		nm->flags.a = false;
+
+	if (nm->flags.p == true && nm->flags.r == true) // p > r
+		nm->flags.r = false;
 }
 
 int	main(int argc, char **argv)
