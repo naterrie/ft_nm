@@ -59,9 +59,9 @@ void	get_args(nm *nm, int argc, char **argv)
 int	main(int argc, char **argv)
 {
 	struct nm nm;
-	init_nm(&nm);
-	int ret = 0;
+	int	ret = 0;
 
+	init_nm(&nm);
 	get_args(&nm, argc, argv);
 
 	if (argc == 1)
@@ -80,6 +80,13 @@ int	main(int argc, char **argv)
 			{
 				i++;
 				continue ;
+			}
+			else if (argc >= 2)
+			{
+				if (i == 1)
+					write(1, "\n", 1);
+				write(1, argv[i], ft_strlen(argv[i]));
+				write(1, ":\n", 2);
 			}
 			nm.filename = argv[i];
 			if (map_file(&nm) != 1)
