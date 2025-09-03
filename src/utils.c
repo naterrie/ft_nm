@@ -95,6 +95,10 @@ int	cmp_section(const char *s1, const char *s2)
 			c2 += 32;
 		if (c1 != c2)
 		{
+			if (c1 == '\0')
+				return 1;
+			if (c2 == '\0')
+				return -1;
 			if (c1 < c2)
 				return -1;
 			else
@@ -103,9 +107,16 @@ int	cmp_section(const char *s1, const char *s2)
 		i++;
 		j++;
 	}
-	if (i < j)
+
+	if (s1[i] == '\0' && s2[j] != '\0')
 		return -1;
-	if (i > j)
+
+	if (s1[i] != '\0' && s2[j] == '\0')
 		return 1;
+
+	if (i < j)
+		return 1;
+	if (i > j)
+		return -1;
 	return 0;
 }

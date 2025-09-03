@@ -6,6 +6,8 @@ void	no_sort(section **section, int bit, flag *flags)
 	{
 		if (flags->a == false && section[i]->sym == 'a')
 			continue ;
+		if (flags->u == true && (section[i]->sym != 'U' && section[i]->sym != 'w'))
+			continue ;
 		put_value(section[i]->value, bit);
 		write(1, " ", 1);
 		write(1, &section[i]->sym, 1);
@@ -15,7 +17,7 @@ void	no_sort(section **section, int bit, flag *flags)
 	}
 }
 #include <stdio.h>
-void	default_sort(section **sections, int bit, flag *flags) // duplicata of no_sort for future modification
+void	default_sort(section **sections, int bit, flag *flags)
 {
 	section *tmp;
 	int i;
@@ -29,13 +31,11 @@ void	default_sort(section **sections, int bit, flag *flags) // duplicata of no_s
 		{
 			if (cmp_section(sections[i]->name, sections[j]->name) > 0)
 			{
-				//printf("swap %s and %s\n", sections[i]->name, sections[j]->name);
 				tmp = sections[i];
 				sections[i] = sections[j];
 				sections[j] = tmp;
 			}
 		}
 	}
-	// Call the no_sort function with the sorted sections
 	no_sort(sections, bit, flags);
 }
