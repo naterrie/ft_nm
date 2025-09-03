@@ -8,6 +8,8 @@ void	no_sort(section **section, int bit, flag *flags)
 			continue ;
 		if (flags->u == true && (section[i]->sym != 'U' && section[i]->sym != 'w'))
 			continue ;
+		if (flags->g == true && ((section[i]->sym >= 'a' && section[i]->sym <= 'z' && section[i]->sym != 'w')))
+			continue ;
 		put_value(section[i]->value, bit);
 		write(1, " ", 1);
 		write(1, &section[i]->sym, 1);
