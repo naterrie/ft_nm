@@ -76,7 +76,7 @@ int nm64bits(nm *nm, section ***sect)
 		(*sect)[count] = malloc(sizeof(section));
 		if ((*sect)[count] == NULL)
 			return 1;
-		if (symbol_name == NULL || symbol_name[0] == '\0')
+		if (symbol_name == NULL)
 		{
 			free((*sect)[count]);
 			continue;
