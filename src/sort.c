@@ -39,5 +39,29 @@ void	default_sort(section **sections, int bit, flag *flags)
 			}
 		}
 	}
+	if (flags->r == true)
+		reverse_sort(sections, bit, flags);
+	no_sort(sections, bit, flags);
+}
+
+void	reverse_sort(section **sections, int bit, flag *flags)
+{
+	section *tmp;
+	int count = 0;
+	int i;
+	int j;
+
+	while (sections[count])
+		count++;
+	i = 0;
+	j = count - 1;
+	while (i < j)
+	{
+		tmp = sections[i];
+		sections[i] = sections[j];
+		sections[j] = tmp;
+		i++;
+		j--;
+	}
 	no_sort(sections, bit, flags);
 }
