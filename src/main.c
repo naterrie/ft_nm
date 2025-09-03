@@ -52,6 +52,8 @@ void	get_args(nm *nm, int argc, char **argv)
 		}
 		i++;
 	}
+	if (nm->flags.u == true && nm->flags.a == true)
+		nm->flags.a = false;
 }
 
 int	main(int argc, char **argv)
@@ -74,6 +76,11 @@ int	main(int argc, char **argv)
 		int i = 1;
 		while (i < argc)
 		{
+			if (argv[i][0] == '-')
+			{
+				i++;
+				continue ;
+			}
 			nm.filename = argv[i];
 			if (map_file(&nm) != 1)
 				ret = ft_nm(&nm);
