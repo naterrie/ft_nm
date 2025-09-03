@@ -1,6 +1,6 @@
 #include "nm.h"
 
-static char found_sym(Elf32_Sym *sym, Elf32_Shdr *shdr)
+static char found_sym32(Elf32_Sym *sym, Elf32_Shdr *shdr)
 {
 	unsigned int bind;
 	unsigned int type;
@@ -84,7 +84,7 @@ int nm32bits(nm *nm, section ***sect)
 		(*sect)[count]->name = ft_strdup(symbol_name);
 		if ((*sect)[count]->name == NULL)
 			return 1;
-		(*sect)[count]->sym = found_sym(&symbols[i], &shdr[symbols[i].st_shndx]);
+		(*sect)[count]->sym = found_sym32(&symbols[i], &shdr[symbols[i].st_shndx]);
 
 		if (symbols[i].st_shndx == SHN_ABS)
 			(*sect)[count]->value = 0;

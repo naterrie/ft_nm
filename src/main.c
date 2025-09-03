@@ -29,12 +29,13 @@ static int	map_file(nm *nm)
 	return 0;
 }
 
-void	get_args(nm *nm, int argc, char **argv)
+void	get_args(nm *nm, int argc, char **argv, bool *hasarg)
 {
 	int i = 1;
 
 	while (i < argc && argv[i][0] == '-')
 	{
+		*hasarg = true;
 		int j = 1;
 		while (argv[i][j])
 		{
@@ -66,13 +67,35 @@ void	get_args(nm *nm, int argc, char **argv)
 		nm->flags.r = false;
 }
 
+void	print_multiple(int argc, char **argv, int i, bool hasarg)
+{
+	// todo
+	if (i == 1 && hasarg == true)
+		return ;
+	else if (argc > 3 && hasarg == true)
+	{
+		if (i != 3)
+			write(1, "\n", 1);
+		write(1, argv[i], ft_strlen(argv[i]));
+		write(1, ":\n", 2);
+	}
+	else if (argc > 2 && hasarg == false)
+	{
+		if (i != 2)
+			write(1, "\n", 1);
+		write(1, argv[i], ft_strlen(argv[i]));
+		write(1, ":\n", 2);
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	struct nm nm;
 	int	ret = 0;
+	bool hasarg = false;
 
 	init_nm(&nm);
-	get_args(&nm, argc, argv);
+	get_args(&nm, argc, argv, &hasarg);
 
 	if (argc == 1)
 	{
@@ -84,20 +107,11 @@ int	main(int argc, char **argv)
 	else
 	{
 		int i = 1;
+		if (hasarg == true)
+			i++;
 		while (i < argc)
 		{
-			if (argv[i][0] == '-')
-			{
-				i++;
-				continue ;
-			}
-			else if (argc >= 2)
-			{
-				if (i == 1)
-					write(1, "\n", 1);
-				write(1, argv[i], ft_strlen(argv[i]));
-				write(1, ":\n", 2);
-			}
+			print_multiple(argc, argv, i, hasarg);
 			nm.filename = argv[i];
 			if (map_file(&nm) != 1)
 				ret = ft_nm(&nm);

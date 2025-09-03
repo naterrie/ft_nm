@@ -1,7 +1,5 @@
 #include "nm.h"
 
-
-
 int ft_nm(nm *nm)
 {
 	unsigned char *magic = (unsigned char *)nm->map;
