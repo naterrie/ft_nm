@@ -2,7 +2,7 @@
 
 int	print_error(char *msg, struct nm *nm)
 {
-	write(2, "ft_nm: ", 5);
+	write(2, "ft_nm: ", 7);
 	write(2, nm->filename, strlen(nm->filename));
 	write(2, ": ", 2);
 	if (errno != 0)
