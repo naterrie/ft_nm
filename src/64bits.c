@@ -1,5 +1,5 @@
 #include "nm.h"
-#include <stdio.h>
+
 static char found_sym64(Elf64_Sym *sym, Elf64_Shdr *shdr)
 {
 	unsigned int bind;
@@ -78,6 +78,8 @@ int nm64bits(nm *nm, section ***sect)
 		(*sect)[count] = malloc(sizeof(section));
 		if ((*sect)[count] == NULL)
 			return 1;
+		if ((symbol_name == NULL || symbol_name[0] == '\0') && nm->flags.a && symbols[i].st_shndx < ehdr->e_shnum)
+			symbol_name = shdrtab + shdr[symbols[i].st_shndx].sh_name;
 		if (symbol_name == NULL)
 		{
 			free((*sect)[count]);
