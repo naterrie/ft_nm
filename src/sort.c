@@ -1,9 +1,11 @@
 #include "nm.h"
-
+#include <stdio.h>
 void	no_sort(section **section, int bit, flag *flags)
 {
 	for (int i = 0; section[i]; i++)
 	{
+		if (ft_strlen(section[i]->name) == 0 && section[i]->value == 0)
+			continue ;
 		if (flags->a == false && section[i]->sym == 'a')
 			continue ;
 		if (flags->u == true && (section[i]->sym != 'U' && section[i]->sym != 'w'))
