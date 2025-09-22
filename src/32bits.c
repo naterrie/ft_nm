@@ -27,6 +27,8 @@ static char found_sym32(Elf32_Sym *sym, Elf32_Shdr *shdr)
 	{
 		if ((shdr->sh_flags & SHF_EXECINSTR) && (shdr->sh_flags & SHF_ALLOC))
 			return ((bind == STB_LOCAL) ? 't' : 'T');
+		if (shdr->sh_type == SHT_GROUP)
+			return ((bind == STB_LOCAL) ? 'n' : 'N');
 		return ((bind == STB_LOCAL) ? 'r' : 'R');
 	}
 	return ((bind == STB_LOCAL) ? 'd' : 'D');
