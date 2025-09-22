@@ -116,10 +116,7 @@ int	main(int argc, char **argv)
 			if (map_file(&nm) != 1)
 				ret = ft_nm(&nm);
 			else
-			{
-				print_error("Error fatal", &nm);
 				ret = 1;
-			}
 			munmap(nm.map, nm.buf.st_size);
 			i++;
 			if (i < argc)
