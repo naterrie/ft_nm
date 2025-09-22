@@ -1,5 +1,5 @@
 #include "nm.h"
-
+#include <stdio.h>
 static char found_sym64(Elf64_Sym *sym, Elf64_Shdr *shdr)
 {
 	unsigned int bind;
@@ -27,6 +27,9 @@ static char found_sym64(Elf64_Sym *sym, Elf64_Shdr *shdr)
 	{
 		if ((shdr->sh_flags & SHF_EXECINSTR) && (shdr->sh_flags & SHF_ALLOC))
 			return ((bind == STB_LOCAL) ? 't' : 'T');
+		if (shdr->sh_type == SHT_GROUP)
+			return ((bind == STB_LOCAL) ? 'n' : 'N');
+		//printf("Debug: %s, type: %u, flags: %lu\n", sectionName, shdr->sh_type, shdr->sh_flags);
 		return ((bind == STB_LOCAL) ? 'r' : 'R');
 	}
 	return ((bind == STB_LOCAL) ? 'd' : 'D');
