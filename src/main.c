@@ -100,7 +100,7 @@ int	main(int argc, char **argv)
 	init_nm(&nm);
 	get_args(&nm, argc, argv, &hasarg);
 
-	if (argc == 1)
+	if (argc == 1 || (argc == 2 && hasarg == true))
 	{
 		if (map_file(&nm) != 1)
 			ret = ft_nm(&nm);
