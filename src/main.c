@@ -79,15 +79,13 @@ void	print_multiple(int argc, char **argv, int i, bool hasarg)
 		return ;
 	else if (argc > 3 && hasarg == true)
 	{
-		if (i != 3)
-			write(1, "\n", 1);
+		write(1, "\n", 1);
 		write(1, argv[i], ft_strlen(argv[i]));
 		write(1, ":\n", 2);
 	}
 	else if (argc > 2 && hasarg == false)
 	{
-		if (i != 2)
-			write(1, "\n", 1);
+		write(1, "\n", 1);
 		write(1, argv[i], ft_strlen(argv[i]));
 		write(1, ":\n", 2);
 	}
@@ -126,8 +124,8 @@ int	main(int argc, char **argv)
 				ret = 1;
 			munmap(nm.map, nm.buf.st_size);
 			i++;
-			if (i < argc)
-				write(1, "\n", 1);
+			// if (i < argc)
+			// 	write(1, "\n", 1);
 		}
 	}
 	return (ret);
