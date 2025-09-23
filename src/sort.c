@@ -45,7 +45,8 @@ void	default_sort(section **sections, int bit, flag *flags)
 	}
 	if (flags->r == true)
 		reverse_sort(sections, bit, flags);
-	no_sort(sections, bit, flags);
+	else
+		no_sort(sections, bit, flags);
 }
 
 void	reverse_sort(section **sections, int bit, flag *flags)

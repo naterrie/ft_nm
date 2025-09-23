@@ -83,7 +83,7 @@ int nm64bits(nm *nm, section ***sect)
 			return 1;
 		if ((symbol_name == NULL || symbol_name[0] == '\0') && nm->flags.a && symbols[i].st_shndx < ehdr->e_shnum)
 			symbol_name = shdrtab + shdr[symbols[i].st_shndx].sh_name;
-		if (symbol_name == NULL)
+		if ((symbol_name == NULL || symbol_name[0] == '\0') && nm->flags.a == false)
 		{
 			free((*sect)[count]);
 			continue;
