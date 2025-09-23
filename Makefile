@@ -46,7 +46,7 @@ $(DIR_OBJS):
 	mkdir -p $@
 
 run: all
-	./$(NAME) ft_nm ft_nm > mine ; nm ft_nm ft_nm > true ; diff mine true
+	./$(NAME) -a .objs/32bits.o tests/cub3D as tests/32bits.o > mine ; nm -a .objs/32bits.o tests/cub3D as tests/32bits.o > true ; diff mine true
 
 clean:
 	echo "$(PURPLE)🧹Removing $(NAME).o files !"

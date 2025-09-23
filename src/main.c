@@ -116,10 +116,12 @@ int	main(int argc, char **argv)
 			i++;
 		while (i < argc)
 		{
-			print_multiple(argc, argv, i, hasarg);
 			nm.filename = argv[i];
-			if (map_file(&nm) != 1)
+			if (map_file(&nm) == 0)
+			{
+				print_multiple(argc, argv, i, hasarg);
 				ret = ft_nm(&nm);
+			}
 			else
 				ret = 1;
 			munmap(nm.map, nm.buf.st_size);

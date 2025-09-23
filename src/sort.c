@@ -4,9 +4,9 @@ void	no_sort(section **section, int bit, flag *flags)
 {
 	for (int i = 0; section[i]; i++)
 	{
-		// if (section[i] == NULL || ft_strlen(section[i]->name) == 0)
+		// if ((section[i] == NULL || ft_strlen(section[i]->name)) == 0 && section[i]->value == 0)
 		// 	continue ;
-		if (ft_strlen(section[i]->name) == 0 && section[i]->value == 0)
+		if (ft_strlen(section[i]->name) == 0 && section[i]->value == 0 && section[i]->sym != 'a')
 			continue ;
 		if (flags->a == false && section[i]->sym == 'a')
 			continue ;
