@@ -74,7 +74,6 @@ void	get_args(nm *nm, int argc, char **argv, bool *hasarg)
 
 void	print_multiple(int argc, char **argv, int i, bool hasarg)
 {
-	// todo
 	if (i == 1 && hasarg == true)
 		return ;
 	else if (argc > 3 && hasarg == true)

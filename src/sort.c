@@ -1,11 +1,9 @@
 #include "nm.h"
-#include <stdio.h>
+
 void	no_sort(section **section, int bit, flag *flags)
 {
 	for (int i = 0; section[i]; i++)
 	{
-		// if ((section[i] == NULL || ft_strlen(section[i]->name)) == 0 && section[i]->value == 0)
-		// 	continue ;
 		if (ft_strlen(section[i]->name) == 0 && section[i]->value == 0 && section[i]->sym != 'a')
 			continue ;
 		if (flags->a == false && section[i]->sym == 'a')
@@ -22,7 +20,7 @@ void	no_sort(section **section, int bit, flag *flags)
 		write(1, "\n", 1);
 	}
 }
-#include <stdio.h>
+
 void	default_sort(section **sections, int bit, flag *flags)
 {
 	section *tmp;
