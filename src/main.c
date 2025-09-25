@@ -37,7 +37,8 @@ static int	map_file(nm *nm)
 void	get_args(nm *nm, int argc, char **argv, bool *hasarg)
 {
 	int i = 1;
-
+	if (ft_strlen(argv[1]) == 1 && argc > 2)
+		return ;
 	while (i < argc && argv[i][0] == '-')
 	{
 		*hasarg = true;
@@ -89,7 +90,7 @@ void	print_multiple(int argc, char **argv, int i, bool hasarg)
 		write(1, ":\n", 2);
 	}
 }
-
+#include <stdio.h>
 int	main(int argc, char **argv)
 {
 	struct nm nm;
