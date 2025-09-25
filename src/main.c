@@ -18,7 +18,7 @@ static int	map_file(nm *nm)
 	nm->fd = open(nm->filename, O_RDONLY);
 	if (nm->fd == -1)
 	{
-		write(2, "ft_nm: '", 7);
+		write(2, "ft_nm: '", 8);
 		write(2, nm->filename, ft_strlen(nm->filename));
 		write(2, "': No such file\n", 16);
 		return 1;
