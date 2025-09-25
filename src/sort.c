@@ -1,6 +1,6 @@
 #include "nm.h"
 
-void	no_sort(section **section, int bit, flag *flags)
+void	display_section(section **section, int bit, flag *flags)
 {
 	for (int i = 0; section[i]; i++)
 	{
@@ -44,7 +44,7 @@ void	default_sort(section **sections, int bit, flag *flags)
 	if (flags->r == true)
 		reverse_sort(sections, bit, flags);
 	else
-		no_sort(sections, bit, flags);
+		display_section(sections, bit, flags);
 }
 
 void	reverse_sort(section **sections, int bit, flag *flags)
@@ -66,5 +66,5 @@ void	reverse_sort(section **sections, int bit, flag *flags)
 		i++;
 		j--;
 	}
-	no_sort(sections, bit, flags);
+	display_section(sections, bit, flags);
 }

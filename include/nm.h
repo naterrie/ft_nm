@@ -43,9 +43,9 @@ int		nm64bits(nm *nm, section ***sect);
 int		nm32bits(nm *nm, section ***sect);
 
 /* Sorting */
+void	display_section(section **section, int bit, flag *flags);
 void	default_sort(section **section, int bit, flag *flags);
 void	reverse_sort(section **section, int bit, flag *flags);
-void	no_sort(section **section, int bit, flag *flags);
 
 /* Utils */
 int		cmp_section(const char *s1, const char *s2);

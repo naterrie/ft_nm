@@ -28,7 +28,7 @@ int ft_nm(nm *nm)
 		return 1;
 	}
 	if (nm->flags.p == true)
-		no_sort(sect, (magic[EI_CLASS] == ELFCLASS64) ? 1 : 0, &nm->flags);
+		display_section(sect, (magic[EI_CLASS] == ELFCLASS64) ? 1 : 0, &nm->flags);
 	else
 		default_sort(sect, (magic[EI_CLASS] == ELFCLASS64) ? 1 : 0, &nm->flags);
 	free_section(sect);
