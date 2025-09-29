@@ -1,7 +1,29 @@
 #include "nm.h"
 
+void	check_double(section **sections)
+{
+	section *tmp;
+	int	i;
+
+	i = 0;
+	while(sections[i + 1])
+	{
+		if (ft_strcmp(sections[i]->name, sections[i + 1]->name) == 0)
+		{
+			if (sections[i]->value > sections[i + 1]->value)
+			{
+				tmp = sections[i];
+				sections[i] = sections[i + 1];
+				sections[i + 1] = tmp;
+			}
+		}
+		i++;
+	}
+}
+
 void	display_section(section **section, int bit, flag *flags)
 {
+	check_double(section);
 	for (int i = 0; section[i]; i++)
 	{
 		if (ft_strlen(section[i]->name) == 0 && section[i]->value == 0 && section[i]->sym != 'a')
