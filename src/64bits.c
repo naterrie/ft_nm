@@ -64,7 +64,7 @@ int nm64bits(nm *nm, section ***sect)
 	}
 
 	if (!symtab || !strtab)
-		return print_error("file format not recognized", nm);
+		return print_error("no symbols", nm);
 
 	Elf64_Sym *symbols = (Elf64_Sym *)(nm->map + symtab->sh_offset);
 	const char *strtab_data = (const char *)(nm->map + strtab->sh_offset);
