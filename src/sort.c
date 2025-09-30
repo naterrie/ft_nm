@@ -21,8 +21,27 @@ void	check_double(section **sections)
 	}
 }
 
-void	display_section(section **section, int bit, flag *flags)
+void	print_multiple(nm *nm)
 {
+	if (nm->pos == 1 && nm->hasarg == true)
+		return ;
+	else if (nm->arg > 3 && nm->hasarg == true)
+	{
+		write(1, "\n", 1);
+		write(1, nm->filename, ft_strlen(nm->filename));
+		write(1, ":\n", 2);
+	}
+	else if (nm->arg > 2 && nm->hasarg == false)
+	{
+		write(1, "\n", 1);
+		write(1, nm->filename, ft_strlen(nm->filename));
+		write(1, ":\n", 2);
+	}
+}
+
+void	display_section(section **section, int bit, flag *flags, nm *nm)
+{
+	print_multiple(nm);
 	check_double(section);
 	for (int i = 0; section[i]; i++)
 	{
@@ -43,7 +62,7 @@ void	display_section(section **section, int bit, flag *flags)
 	}
 }
 
-void	default_sort(section **sections, int bit, flag *flags)
+void	default_sort(section **sections, int bit, flag *flags, nm *nm)
 {
 	section *tmp;
 	int i;
@@ -64,12 +83,12 @@ void	default_sort(section **sections, int bit, flag *flags)
 		}
 	}
 	if (flags->r == true)
-		reverse_sort(sections, bit, flags);
+		reverse_sort(sections, bit, flags, nm);
 	else
-		display_section(sections, bit, flags);
+		display_section(sections, bit, flags, nm);
 }
 
-void	reverse_sort(section **sections, int bit, flag *flags)
+void	reverse_sort(section **sections, int bit, flag *flags, nm *nm)
 {
 	section *tmp;
 	int count = 0;
@@ -88,5 +107,5 @@ void	reverse_sort(section **sections, int bit, flag *flags)
 		i++;
 		j--;
 	}
-	display_section(sections, bit, flags);
+	display_section(sections, bit, flags, nm);
 }

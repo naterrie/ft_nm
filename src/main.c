@@ -2,6 +2,8 @@
 
 static void	init_nm(struct nm *nm)
 {
+	nm->arg = 0;
+	nm->pos = 0;
 	nm->fd = -1;
 	nm->map = NULL;
 	nm->filename = "a.out";
@@ -11,6 +13,7 @@ static void	init_nm(struct nm *nm)
 	nm->flags.u = false;
 	nm->flags.r = false;
 	nm->flags.p = false;
+	nm->hasarg = false;
 }
 
 static int	map_file(nm *nm)
@@ -34,14 +37,14 @@ static int	map_file(nm *nm)
 	return 0;
 }
 
-void	get_args(nm *nm, int argc, char **argv, bool *hasarg)
+void	get_args(nm *nm, int argc, char **argv)
 {
 	int i = 1;
 	if (ft_strlen(argv[1]) == 1 && argc > 2)
 		return ;
 	while (i < argc && argv[i][0] == '-')
 	{
-		*hasarg = true;
+		nm->hasarg = true;
 		int j = 1;
 		while (argv[i][j])
 		{
@@ -73,34 +76,17 @@ void	get_args(nm *nm, int argc, char **argv, bool *hasarg)
 		nm->flags.r = false;
 }
 
-void	print_multiple(int argc, char **argv, int i, bool hasarg)
-{
-	if (i == 1 && hasarg == true)
-		return ;
-	else if (argc > 3 && hasarg == true)
-	{
-		write(1, "\n", 1);
-		write(1, argv[i], ft_strlen(argv[i]));
-		write(1, ":\n", 2);
-	}
-	else if (argc > 2 && hasarg == false)
-	{
-		write(1, "\n", 1);
-		write(1, argv[i], ft_strlen(argv[i]));
-		write(1, ":\n", 2);
-	}
-}
-
 int	main(int argc, char **argv)
 {
 	struct nm nm;
 	int	ret = 0;
-	bool hasarg = false;
+
 
 	init_nm(&nm);
-	get_args(&nm, argc, argv, &hasarg);
+	get_args(&nm, argc, argv);
+	nm.arg = argc;
 
-	if (argc == 1 || (argc == 2 && hasarg == true))
+	if (argc == 1 || (argc == 2 && nm.hasarg == true))
 	{
 		if (map_file(&nm) != 1)
 			ret = ft_nm(&nm);
@@ -110,14 +96,14 @@ int	main(int argc, char **argv)
 	else
 	{
 		int i = 1;
-		if (hasarg == true)
+		if (nm.hasarg == true)
 			i++;
 		while (i < argc)
 		{
 			nm.filename = argv[i];
 			if (map_file(&nm) == 0)
 			{
-				print_multiple(argc, argv, i, hasarg);
+				nm.pos = i;
 				ret = ft_nm(&nm);
 			}
 			else

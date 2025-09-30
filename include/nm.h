@@ -22,7 +22,10 @@ typedef struct flag
 
 typedef struct nm
 {
+	int arg;
+	int pos;
 	int fd;
+	bool hasarg;
 	void *map;
 	struct stat buf;
 	char *filename;
@@ -43,9 +46,9 @@ int		nm64bits(nm *nm, section ***sect);
 int		nm32bits(nm *nm, section ***sect);
 
 /* Sorting */
-void	display_section(section **section, int bit, flag *flags);
-void	default_sort(section **section, int bit, flag *flags);
-void	reverse_sort(section **section, int bit, flag *flags);
+void	display_section(section **section, int bit, flag *flags, nm *nm);
+void	default_sort(section **section, int bit, flag *flags, nm *nm);
+void	reverse_sort(section **section, int bit, flag *flags, nm *nm);
 
 /* Utils */
 int		cmp_section(const char *s1, const char *s2);
