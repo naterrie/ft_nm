@@ -90,7 +90,7 @@ void	print_multiple(int argc, char **argv, int i, bool hasarg)
 		write(1, ":\n", 2);
 	}
 }
-#include <stdio.h>
+
 int	main(int argc, char **argv)
 {
 	struct nm nm;
@@ -124,8 +124,6 @@ int	main(int argc, char **argv)
 				ret = 1;
 			munmap(nm.map, nm.buf.st_size);
 			i++;
-			// if (i < argc)
-			// 	write(1, "\n", 1);
 		}
 	}
 	return (ret);
