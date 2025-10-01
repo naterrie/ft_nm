@@ -81,7 +81,6 @@ int	main(int argc, char **argv)
 	struct nm nm;
 	int	ret = 0;
 
-
 	init_nm(&nm);
 	get_args(&nm, argc, argv);
 	nm.arg = argc;
