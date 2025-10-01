@@ -16,8 +16,7 @@ Type is the type of the symbol who will depend on the type, bind and flags (most
 
 Name is the name of the symbol, if it has a version information associated it will displayed if there isnt the version string is displayed
 
-### Header struct
-With the map we can cast it in the ELF struct Ehdr (64 or 32 bits) who is defined like this :
+### Header
 
 ```c
 #define EI_NIDENT 16
@@ -71,9 +70,10 @@ typedef struct
 
 (for more information about ELF Header click [here](https://docs.oracle.com/cd/E19683-01/816-1386/chapter6-43405/index.html))
 
-### Section struct
+We start to cast the man in this struct, with this you can check some classic information, if it's an ELF, 32bits or 64bits, if the offset is not highter than the size and other to be sure that the arguments isn't corrupted or invalid.
+Then we can cast the map in Shdr using the e_shoff
 
-Once we have the Ehdr struct, map can be cast in an other struct from ELF named Shdr (32 or 64 bits) who is defined like this :
+### Section struct
 
 ```c
 typedef struct
@@ -104,6 +104,8 @@ typedef struct
 
 (for more information about ELF Section click [here](https://docs.oracle.com/cd/E19683-01/816-1386/chapter6-94076/index.html))
 
+Now with the section header struct we can check if .symtab and .strtab exist and their position to cast it in the symbol struct
+
 ### Symbol struct
 
 ```c
@@ -125,24 +127,32 @@ typedef struct
 - `st_value` is the symbol value
 - `st_size` is the symbol size
 
-(for more information about sym, click [here](https://docs.oracle.com/cd/E19683-01/816-1386/6m7qcoblj/index.html#chapter6-79797))
+(For more information about sym, click [here](https://docs.oracle.com/cd/E19683-01/816-1386/6m7qcoblj/index.html#chapter6-79797))
+
+nm use this struct to show the symbols information, name, type and value if possible
+*Listing every symbol type will take too much space and time, prefer reading the [man](https://man7.org/linux/man-pages/man1/nm.1.html)*
+
+Some symbols may not have a name, those will be listed if the flag '-a' is activated
+For the type it will depend of a lot of variable, if it's weak, global, where in the code (text, date...)
+The value is like the name, instead it's the undefined symbol who will not have a value
+
+It display it like this : value type name
+
+## The sorts
+nm have a strange but logical sort :
+Alphabetical order, skip _ char and a A are the same
+Reverse (-r) will reverse the sort
+And last for this project, the no sort (-p) will directly show the output without any sort before
+
+In any case if two symbol have the same name it will compare the value, the one with the lowest value will be print first
 
 ## Explanation of the program
 
-When the program start we need to check the entry (arguments, flags).
-If there isnt any arguments, the program try a.out, if there is multiple argument we do the program on all of them.
-
-To do that we need to open and map the file, once the map is created and add is a struct we go in nm function.
-
-With the map created we cast it in ELF header and check if it's a valid file and if it's 64 or 32 bits and go to the function made for.
-(there isn't any difference in 64 and 32 bits except the struct).
-
-Once the header is parsed we do a cast from the Header e_shoff to have the section.
-With the section we get the .symtab and .strtab and keep them for later.
-After that we get the symbols and set a variable for the name.
-
-For each symbol we set them in a variable that will keep information of section who is valid for nm.
-To finish we need to check the flags is there is a need to remove lines or sort them in a specific order
+First, the programme check the number of args, if there is a flag, if there is only one nm take a.out automatically
+If the file exist we check start the firts check, ELF, offset and size comparaison and others
+Then we cast the map, use the offset of Ehdr and Shdr to get the position of the symbols.
+Here we save the symbols, (those without name when a isnt active arent saved).
+For each symbol we try to get the good type depending of the bind and type idx all of those informations are avaible using a define from the elf header except for the type N who i found be the only needed the section name.
 
 ## Bonus
 
@@ -153,6 +163,6 @@ a add the debug file (found in symtab)
 u show the undefined only
 g show the extern only
 
-Somes flags remove effects of other flags :
-r and p together r will never be used
-g a and u only one will be used it have an order wich is u g and a (-gau will show -u, -ga will show -g)
+Flags have an priority order depending of if it's a sort flag or a show symbols, the others are automatically disabled.
+For the sort on this project we only have p and r, if both are used it will be p who will always be used
+And for the symbols we have u a ang g, the priority is the same as written
