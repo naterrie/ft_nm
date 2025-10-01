@@ -108,7 +108,8 @@ int	main(int argc, char **argv)
 			}
 			else
 				ret = 1;
-			munmap(nm.map, nm.buf.st_size);
+			if (nm.map && nm.buf.st_size > 0)
+				munmap(nm.map, nm.buf.st_size);
 			i++;
 		}
 	}
