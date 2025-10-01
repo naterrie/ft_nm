@@ -40,7 +40,7 @@ static int	map_file(nm *nm)
 void	get_args(nm *nm, int argc, char **argv)
 {
 	int i = 1;
-	if (ft_strlen(argv[1]) == 1 && argc > 2)
+	if (ft_strlen(argv[1]) == 1)
 		return ;
 	while (i < argc && argv[i][0] == '-')
 	{
