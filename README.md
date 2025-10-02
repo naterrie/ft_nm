@@ -1,6 +1,6 @@
 # ft_nm
 Project ft_nm of 42.
-nm is a UNIX function that examin binary files.
+nm is a UNIX function that examines binary files and print the symbols.
 In this project we have to write a program in C who does the same things (with bonus flags).
 For this project we use ELF Format (struct and DEFINE) with a map.
 
