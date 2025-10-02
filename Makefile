@@ -33,7 +33,7 @@ all: $(NAME)
 
 $(NAME): $(DIR_OBJS) $(OBJS)
 	gcc $(FLAGS) $(OBJS) -o $(NAME)
-	echo "$(GREEN)✅ $(NAME) compilated !"
+	echo "$(GREEN)✅ $(NAME) compilated !$(RESET)"
 
 $(DIR_OBJS)/%.o: src/%.c Makefile
 	echo "$(GREEN)⏳ Making $(NAME)"
