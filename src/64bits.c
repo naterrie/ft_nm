@@ -1,5 +1,5 @@
 #include "nm.h"
-
+#include <stdio.h>
 static char found_sym64(Elf64_Sym *sym, Elf64_Shdr *shdr, char *SectionName)
 {
 	unsigned int bind;
@@ -32,6 +32,8 @@ static char found_sym64(Elf64_Sym *sym, Elf64_Shdr *shdr, char *SectionName)
 
 		if (ft_strncmp(SectionName, ".debug", 6) == 0)
 			return ('N');
+		if (ft_strncmp(SectionName, ".comment", 8) == 0)
+			return ('n');
 		return ((bind == STB_LOCAL) ? 'r' : 'R');
 	}
 	return ((bind == STB_LOCAL) ? 'd' : 'D');
