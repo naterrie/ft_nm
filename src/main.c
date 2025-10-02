@@ -20,12 +20,7 @@ static int	map_file(nm *nm)
 {
 	nm->fd = open(nm->filename, O_RDONLY);
 	if (nm->fd == -1)
-	{
-		write(2, "ft_nm: '", 8);
-		write(2, nm->filename, ft_strlen(nm->filename));
-		write(2, "': No such file\n", 16);
-		return 1;
-	}
+		return print_error("No such file", nm);
 
 	if (fstat(nm->fd, &nm->buf) == -1)
 		return print_error("Error fatal", nm);
