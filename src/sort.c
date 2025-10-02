@@ -107,5 +107,21 @@ void	reverse_sort(section **sections, int bit, flag *flags, nm *nm)
 		i++;
 		j--;
 	}
+	i = 0;
+	while(i < count - 1)
+	{
+		if (cmp_section(sections[i]->name, sections[i + 1]->name) == 0)
+		{
+			if (sections[i]->value > sections[i + 1]->value)
+				continue;
+			else if (sections[i]->name[0] == '.')
+			{
+				tmp = sections[i];
+				sections[i] = sections[i + 1];
+				sections[i + 1] = tmp;
+			}
+		}
+		i++;
+	}
 	display_section(sections, bit, flags, nm);
 }
