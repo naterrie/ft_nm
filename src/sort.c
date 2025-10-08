@@ -80,6 +80,15 @@ void	default_sort(section **sections, int bit, flag *flags, nm *nm)
 				sections[i] = sections[j];
 				sections[j] = tmp;
 			}
+			else if (cmp_section(sections[i]->name, sections[j]->name) == 0 && sections[i]->value == sections[j]->value)
+			{
+				if (sections[i]->name[0] == '_')
+				{
+					tmp = sections[i];
+					sections[i] = sections[j];
+					sections[j] = tmp;
+				}
+			}
 		}
 	}
 	if (flags->r == true)
