@@ -1,5 +1,5 @@
 #include "nm.h"
-#include <stdio.h>
+
 static char found_sym64(Elf64_Sym *sym, Elf64_Shdr *shdr, char *SectionName)
 {
 	unsigned int bind;
