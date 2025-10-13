@@ -122,7 +122,10 @@ void	reverse_sort(section **sections, int bit, flag *flags, nm *nm)
 		if (cmp_section(sections[i]->name, sections[i + 1]->name) == 0)
 		{
 			if (sections[i]->value > sections[i + 1]->value)
+			{
+				i++;
 				continue;
+			}
 			else if (sections[i]->name[0] == '.')
 			{
 				tmp = sections[i];
